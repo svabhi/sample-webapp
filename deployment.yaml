@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-webapp
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-webapp
+  template:
+    metadata:
+      labels:
+        app: sample-webapp
+    spec:
+      containers:
+      - image: sample-webapp:v1.0
+        name: sample-webapp
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: sample-webapp
+  name: sample-webapp
+  namespace: default
+spec:
+  ports:
+  -  port: 8080
+  selector:
+    app: sample-webapp
+#  type: ClusterIP
